@@ -6,7 +6,6 @@ window.onload = () => {
     if (savedData) {
         const data = JSON.parse(savedData);
         
-        // Load student details
         document.getElementById("studentName").value = data.studentName || "";
         document.getElementById("studentStd").value = data.std || "";
         document.getElementById("studentSec").value = data.sec || "";
@@ -70,7 +69,6 @@ const finalMark = () => {
     const subjectRows = document.querySelectorAll('.subject-item');
     const errorAlert = document.getElementById("errorAlert");
 
-    // Form validation
     if (!studentName || !studentStd || !studentSec || subjectRows.length === 0) {
         errorAlert.style.display = "block";
         setTimeout(() => { errorAlert.style.display = "none"; }, 5000);
