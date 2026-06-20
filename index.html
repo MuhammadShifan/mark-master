@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkMaster — Student Grade Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-primary-subtle">
+
+    <div class="bg-primary text-white py-2">
+        <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <div class="spinner-grow spinner-grow-sm text-warning" role="status">
+                    <span class="visually-hidden">Loading</span>
+                </div>
+                <span class="fw-semibold small">Dynamic Grade Calculator</span>
+            </div>
+            <span class="badge rounded-pill text-bg-warning text-dark">Academic Year 2025–26</span>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container flex-column flex-md-row align-items-center gap-3 py-3">
+            <a class="navbar-brand fw-bold fs-4 mb-0" href="#">
+                <span class="text-warning">Mark</span><span class="text-info">Master</span>
+                <span class="spinner-border spinner-border-sm text-success ms-2" role="status">
+                    <span class="visually-hidden">Active</span>
+                </span>
+            </a>
+            <ul class="navbar-nav flex-row flex-wrap justify-content-center gap-2">
+                <li class="nav-item">
+                    <a class="nav-link active fw-semibold rounded-pill px-3 bg-primary" href="#calculator">Calculator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-pill px-3" href="#grade-scale">Grade Scale</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-pill px-3" href="#results">Results</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="py-5 bg-dark text-white">
+        <div class="container text-center">
+            <p class="text-info fw-semibold text-uppercase small mb-2">VinSup Academy</p>
+            <h1 class="display-5 fw-bold mb-3">
+                Student Grade Calculator
+                <span class="spinner-grow spinner-grow-sm text-warning ms-1" role="status"></span>
+            </h1>
+            <p class="lead text-secondary col-lg-8 mx-auto mb-4">
+                Enter your details, add subjects, and get your final report instantly!
+            </p>
+        </div>
+    </header>
+
+    <main id="calculator" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="card-header bg-primary text-white py-4 border-0">
+                            <h2 class="fw-bold mb-1">Enter Details & Marks</h2>
+                            <p class="mb-0 opacity-75 small">Fill in student details and subject marks (0–100)</p>
+                        </div>
+                        <div class="card-body p-4 p-lg-5 bg-white">
+                            <form id="gradeForm">
+                                
+                                <div class="row g-3 mb-5 pb-4 border-bottom border-2">
+                                    <h5 class="fw-bold text-primary mb-2">Student Information</h5>
+                                    <div class="col-md-4">
+                                        <label for="studentName" class="form-label text-secondary small">Student Name</label>
+                                        <input type="text" class="form-control form-control-lg bg-light" id="studentName" placeholder="E.g. John Doe" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="studentStd" class="form-label text-secondary small">Standard / Class</label>
+                                        <input type="text" class="form-control form-control-lg bg-light" id="studentStd" placeholder="E.g. 12th" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="studentSec" class="form-label text-secondary small">Section</label>
+                                        <input type="text" class="form-control form-control-lg bg-light" id="studentSec" placeholder="E.g. A" required>
+                                    </div>
+                                </div>
+
+                                <h5 class="fw-bold text-primary mb-3">Academic Marks</h5>
+                                <div id="subjectsContainer" class="row g-4 mb-4">
+                                    </div>
+
+                                <div class="text-center mb-4">
+                                    <button type="button" class="btn btn-outline-primary fw-bold rounded-pill px-4" onclick="addSubject()">
+                                        + Add New Subject
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <button type="button" id="calculateBtn" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow" onclick="finalMark()">
+                                        <span class="spinner-grow spinner-grow-sm me-2" role="status"></span>
+                                        Calculate Grades
+                                    </button>
+                                    <button type="reset" id="btnResetForm" class="btn btn-outline-secondary btn-lg rounded-pill px-4 py-3 ms-2" onclick="resetBtn()">
+                                        Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section id="results" class="py-5 bg-dark text-white">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">
+                    Your Results
+                    <span class="spinner-border spinner-border-sm text-info ms-2" role="status"></span>
+                </h2>
+                <p class="text-secondary" id="resultStudentInfo">Based on your entered marks</p>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+                <div class="col">
+                    <div class="card bg-black border border-primary border-3 rounded-4 h-100 text-center p-4">
+                        <p class="text-secondary text-uppercase small mb-2">Total Marks</p>
+                        <h2 class="display-4 fw-bold text-primary mb-0" id="totalMarks">0</h2>
+                        <p class="text-secondary small mt-2 mb-0" id="totalMaxText">out of 0</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card bg-black border border-success border-3 rounded-4 h-100 text-center p-4">
+                        <p class="text-secondary text-uppercase small mb-2">Percentage</p>
+                        <h2 class="display-4 fw-bold text-success mb-0" id="averageMark">0%</h2>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card bg-black border border-warning border-3 rounded-4 h-100 text-center p-4">
+                        <p class="text-secondary text-uppercase small mb-2">Final Grade</p>
+                        <h2 class="display-4 fw-bold text-warning mb-0" id="finalGrade">—</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+        <div id="errorAlert" class="alert alert-danger shadow-lg rounded-4" role="alert" style="display: none;">
+            <strong>Missing Info!</strong> Please fill all student details and ensure marks are between 0-100.
+        </div>
+    </div>
+
+    <script src="javaScript.js"></script>
+</body>
+</html>
